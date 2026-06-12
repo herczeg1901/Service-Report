@@ -36,11 +36,7 @@
     padding: 2rem;
   }
 
-  /* ── SCREEN WRAPPER ── */
-  .screen-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
-  }
+  .screen-wrapper { max-width: 900px; margin: 0 auto; }
 
   .top-bar {
     display: flex;
@@ -51,15 +47,10 @@
     border-bottom: 1px solid rgba(255,255,255,0.1);
   }
 
-  .brand {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: 0.15em;
-    color: var(--white);
-  }
+  .brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.15em; color: var(--white); }
   .brand span { color: var(--red); }
 
-  .top-actions { display: flex; gap: 1rem; }
+  .top-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
   .btn {
     font-family: 'Barlow Condensed', sans-serif;
@@ -67,7 +58,7 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
     border: none;
-    padding: 0.7rem 1.6rem;
+    padding: 0.7rem 1.4rem;
     cursor: pointer;
     transition: all 0.2s;
     touch-action: manipulation;
@@ -79,8 +70,9 @@
   .btn-red:hover { background: #ff3b3b; }
   .btn-outline { background: transparent; color: var(--chrome); border: 1px solid rgba(255,255,255,0.2); }
   .btn-outline:hover { border-color: var(--chrome); color: #fff; }
+  .btn-green { background: #1a5c30; color: #2aaa55; border: 1px solid #2aaa55; }
+  .btn-green:hover { background: #2aaa55; color: #fff; }
 
-  /* ── FORM CARD ── */
   .card {
     background: var(--charcoal);
     border: 1px solid rgba(255,255,255,0.07);
@@ -97,9 +89,7 @@
     border-bottom: 1px solid rgba(255,255,255,0.07);
   }
 
-  .card-header-icon {
-    font-size: 1.1rem;
-  }
+  .card-header-icon { font-size: 1.1rem; }
 
   .card-title {
     font-family: 'Barlow Condensed', sans-serif;
@@ -112,13 +102,7 @@
 
   .card-body { padding: 1.5rem; }
 
-  /* ── FIELD GRID ── */
-  .field-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-  }
-
+  .field-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
   .field-grid-2 { grid-template-columns: repeat(2, 1fr); }
   .field-grid-4 { grid-template-columns: repeat(4, 1fr); }
   .col-span-2 { grid-column: span 2; }
@@ -135,9 +119,7 @@
     color: var(--dim);
   }
 
-  .field input,
-  .field select,
-  .field textarea {
+  .field input, .field select, .field textarea {
     background: var(--steel);
     border: 1px solid rgba(255,255,255,0.08);
     color: var(--white);
@@ -150,12 +132,9 @@
     width: 100%;
   }
 
-  .field input:focus,
-  .field select:focus,
-  .field textarea:focus { border-color: var(--red); }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--red); }
   .field textarea { min-height: 70px; resize: vertical; }
 
-  /* ── HEALTH CHECK TABLE ── */
   .check-section-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.75rem;
@@ -180,15 +159,9 @@
   }
 
   .check-row:last-child { border-bottom: none; }
+  .check-label { font-size: 0.88rem; color: var(--chrome); }
 
-  .check-label {
-    font-size: 0.88rem;
-    color: var(--chrome);
-  }
-
-  /* Radio pill buttons */
   .radio-group { display: flex; gap: 0.4rem; }
-
   .radio-group input[type="radio"] { display: none; }
 
   .radio-group label {
@@ -205,24 +178,9 @@
     user-select: none;
   }
 
-  .radio-group input[type="radio"].pass:checked + label {
-    background: var(--pass-bg);
-    border-color: var(--pass-border);
-    color: var(--pass-border);
-  }
-
-  .radio-group input[type="radio"].advisory:checked + label {
-    background: var(--advisory-bg);
-    border-color: var(--advisory-border);
-    color: var(--advisory-border);
-  }
-
-  .radio-group input[type="radio"].fail:checked + label {
-    background: var(--fail-bg);
-    border-color: var(--fail-border);
-    color: var(--fail-border);
-  }
-
+  .radio-group input[type="radio"].pass:checked + label { background: var(--pass-bg); border-color: var(--pass-border); color: var(--pass-border); }
+  .radio-group input[type="radio"].advisory:checked + label { background: var(--advisory-bg); border-color: var(--advisory-border); color: var(--advisory-border); }
+  .radio-group input[type="radio"].fail:checked + label { background: var(--fail-bg); border-color: var(--fail-border); color: var(--fail-border); }
   .radio-group label:hover { border-color: rgba(255,255,255,0.4); color: var(--white); }
 
   .check-notes input {
@@ -240,7 +198,6 @@
   .check-notes input:focus { border-color: var(--red); }
   .check-notes input::placeholder { color: var(--dim); font-size: 0.78rem; }
 
-  /* ── WORK DONE TABLE ── */
   .work-table { width: 100%; border-collapse: collapse; }
 
   .work-table th {
@@ -254,11 +211,7 @@
     border-bottom: 1px solid rgba(255,255,255,0.08);
   }
 
-  .work-table td {
-    padding: 0.4rem 0.75rem;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    vertical-align: middle;
-  }
+  .work-table td { padding: 0.4rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; }
 
   .work-table td input {
     background: transparent;
@@ -293,43 +246,15 @@
 
   .add-row-btn:hover { border-color: var(--red); color: var(--red); }
 
-  /* ── SUMMARY TOTALS ── */
-  .totals {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0;
-    margin-top: 1rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 1rem;
-  }
+  .totals { display: flex; justify-content: flex-end; gap: 0; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; }
 
-  .total-row {
-    display: grid;
-    grid-template-columns: 160px 120px;
-    gap: 0;
-    text-align: right;
-    margin-bottom: 0.4rem;
-  }
+  .total-row { display: grid; grid-template-columns: 160px 120px; gap: 0; text-align: right; margin-bottom: 0.4rem; }
 
-  .total-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--dim);
-    padding-right: 1rem;
-  }
-
-  .total-value {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.9rem;
-    color: var(--chrome);
-  }
-
+  .total-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); padding-right: 1rem; }
+  .total-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; color: var(--chrome); }
   .total-grand .total-label { color: var(--white); font-size: 0.95rem; }
   .total-grand .total-value { color: var(--red); font-size: 1.1rem; font-weight: 700; }
 
-  /* ── SIGNATURE ── */
   .sig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 
   .sig-box {
@@ -341,21 +266,9 @@
     position: relative;
   }
 
-  .sig-box-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--dim);
-  }
+  .sig-box-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); }
 
-  canvas.sig-canvas {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    cursor: crosshair;
-  }
+  canvas.sig-canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: crosshair; }
 
   .sig-clear {
     position: absolute;
@@ -374,7 +287,6 @@
 
   .sig-clear:hover { color: var(--red); }
 
-  /* ── SUMMARY PILL BAR ── */
   .summary-bar {
     display: flex;
     gap: 1rem;
@@ -383,205 +295,101 @@
     border-top: 1px solid rgba(255,255,255,0.07);
   }
 
-  .summary-pill {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .pill-dot {
-    width: 10px; height: 10px; border-radius: 50%;
-  }
-
+  .summary-pill { display: flex; align-items: center; gap: 0.5rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .pill-dot { width: 10px; height: 10px; border-radius: 50%; }
   .pill-pass .pill-dot { background: var(--pass-border); }
   .pill-advisory .pill-dot { background: var(--advisory-border); }
   .pill-fail .pill-dot { background: var(--fail-border); }
-
-  .pill-count {
-    font-size: 1rem;
-    font-weight: 700;
-  }
-
+  .pill-count { font-size: 1rem; font-weight: 700; }
   .pill-pass .pill-count { color: var(--pass-border); }
   .pill-advisory .pill-count { color: var(--advisory-border); }
   .pill-fail .pill-count { color: var(--fail-border); }
 
-  /* ══════════════════════════════
-     PRINT / PDF STYLES
-  ══════════════════════════════ */
+  /* INVOICE MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.9); z-index: 9999;
+    align-items: center; justify-content: center;
+    padding: 1rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--charcoal);
+    border: 1px solid rgba(255,255,255,0.1);
+    width: 100%; max-width: 700px;
+    max-height: 90vh; overflow-y: auto;
+    border-radius: 8px;
+  }
+  .modal-head {
+    background: var(--steel);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .modal-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; }
+  .modal-close { background: none; border: none; color: var(--dim); font-size: 1.3rem; cursor: pointer; }
+  .modal-close:hover { color: var(--red); }
+  .modal-body { padding: 1.5rem; }
+  .modal-footer { padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.07); display: flex; gap: 0.75rem; justify-content: flex-end; flex-wrap: wrap; }
+
+  /* INVOICE PREVIEW inside modal */
+  .inv-preview { background: #fff; color: #111; padding: 2rem; font-family: Arial, sans-serif; font-size: 13px; border-radius: 4px; }
+  .inv-preview h1 { font-size: 1.6rem; color: #d42b2b; margin-bottom: 0.25rem; }
+  .inv-preview .inv-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+  .inv-preview table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  .inv-preview th { background: #f5f5f5; padding: 0.5rem; text-align: left; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #666; border-bottom: 2px solid #ddd; }
+  .inv-preview td { padding: 0.6rem 0.5rem; border-bottom: 1px solid #eee; }
+  .inv-preview .grand { font-size: 1.1rem; font-weight: 900; color: #d42b2b; }
+
   @media print {
-    @page {
-      size: A4;
-      margin: 12mm 14mm;
-    }
-
-    body {
-      background: #fff !important;
-      color: #111 !important;
-      padding: 0;
-      font-size: 11px;
-    }
-
-    .top-actions, .add-row-btn, .sig-clear { display: none !important; }
-
+    @page { size: A4; margin: 12mm 14mm; }
+    body { background: #fff !important; color: #111 !important; padding: 0; font-size: 11px; }
+    .top-actions, .add-row-btn, .sig-clear, .modal-overlay { display: none !important; }
     .screen-wrapper { max-width: 100%; }
-
-    .top-bar {
-      border-bottom: 2px solid #111;
-      margin-bottom: 10px;
-      padding-bottom: 8px;
-    }
-
+    .top-bar { border-bottom: 2px solid #111; margin-bottom: 10px; padding-bottom: 8px; }
     .brand { color: #111 !important; font-size: 1.4rem; }
     .brand span { color: #d42b2b !important; }
-
-    .card {
-      background: #fff !important;
-      border: 1px solid #ccc !important;
-      margin-bottom: 10px;
-      break-inside: avoid;
-    }
-
-    .card-header {
-      background: #f0f0f0 !important;
-      border-bottom: 1px solid #ccc !important;
-      padding: 6px 12px;
-    }
-
+    .card { background: #fff !important; border: 1px solid #ccc !important; margin-bottom: 10px; break-inside: avoid; }
+    .card-header { background: #f0f0f0 !important; border-bottom: 1px solid #ccc !important; padding: 6px 12px; }
     .card-title { color: #111 !important; font-size: 0.85rem; }
-
     .card-body { padding: 10px 12px; }
-
     .field label { color: #555 !important; }
-
-    .field input,
-    .field select,
-    .field textarea {
-      background: #fff !important;
-      border: 1px solid #ccc !important;
-      color: #111 !important;
-      font-size: 0.88rem;
-      padding: 3px 6px;
-    }
-
-    .check-section-title {
-      color: #d42b2b !important;
-      border-bottom-color: #d42b2b !important;
-      font-size: 0.72rem;
-      padding: 4px 0 3px;
-      margin-top: 6px;
-    }
-
+    .field input, .field select, .field textarea { background: #fff !important; border: 1px solid #ccc !important; color: #111 !important; font-size: 0.88rem; padding: 3px 6px; }
+    .check-section-title { color: #d42b2b !important; border-bottom-color: #d42b2b !important; font-size: 0.72rem; padding: 4px 0 3px; margin-top: 6px; }
     .check-label { color: #222 !important; font-size: 0.82rem; }
-
-    .radio-group label {
-      border-color: #ccc !important;
-      color: #555 !important;
-      font-size: 0.68rem;
-      padding: 2px 6px;
-    }
-
-    .radio-group input[type="radio"].pass:checked + label {
-      background: #d4edda !important;
-      border-color: #28a745 !important;
-      color: #155724 !important;
-    }
-
-    .radio-group input[type="radio"].advisory:checked + label {
-      background: #fff3cd !important;
-      border-color: #ffc107 !important;
-      color: #856404 !important;
-    }
-
-    .radio-group input[type="radio"].fail:checked + label {
-      background: #f8d7da !important;
-      border-color: #dc3545 !important;
-      color: #721c24 !important;
-    }
-
-    .check-notes input {
-      background: #fff !important;
-      border-bottom-color: #ccc !important;
-      color: #111 !important;
-      font-size: 0.78rem;
-    }
-
+    .radio-group label { border-color: #ccc !important; color: #555 !important; font-size: 0.68rem; padding: 2px 6px; }
+    .radio-group input[type="radio"].pass:checked + label { background: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; }
+    .radio-group input[type="radio"].advisory:checked + label { background: #fff3cd !important; border-color: #ffc107 !important; color: #856404 !important; }
+    .radio-group input[type="radio"].fail:checked + label { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
+    .check-notes input { background: #fff !important; border-bottom-color: #ccc !important; color: #111 !important; font-size: 0.78rem; }
     .work-table th { color: #555 !important; font-size: 0.68rem; }
     .work-table td { border-bottom-color: #eee !important; }
     .work-table td input { color: #111 !important; border-bottom-color: #ccc !important; font-size: 0.82rem; }
-
     .total-label { color: #555 !important; }
     .total-value { color: #111 !important; }
     .total-grand .total-label { color: #111 !important; }
     .total-grand .total-value { color: #d42b2b !important; }
-
     .sig-box { border-color: #999 !important; height: 60px; }
     .sig-box-label { color: #555 !important; }
-
-    .summary-bar {
-      background: #f5f5f5 !important;
-      border-top: 1px solid #ccc !important;
-    }
-
+    .summary-bar { background: #f5f5f5 !important; border-top: 1px solid #ccc !important; }
     .summary-pill { color: #111; }
   }
 
-/* ── LOGIN ── */
-.login-screen{
-  position:fixed;inset:0;background:#0a0a0a;
-  display:flex;align-items:center;justify-content:center;
-  z-index:99999;padding:2rem;
-}
-.login-screen.hidden{display:none;}
-.login-box{
-  background:#141414;border:1px solid rgba(255,255,255,0.07);
-  width:100%;max-width:360px;overflow:hidden;
-}
-.login-header{
-  background:#1a1a1a;padding:1.8rem;text-align:center;
-  border-bottom:1px solid rgba(255,255,255,0.07);
-}
-.login-logo{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.8rem;letter-spacing:0.2em;color:#f0f0f0;
-}
-.login-logo span{color:#d42b2b;}
-.login-sub{
-  font-family:'Barlow Condensed',sans-serif;
-  font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;
-  color:#555;margin-top:0.3rem;
-}
-.login-body{padding:1.8rem;}
-.login-field{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem;}
-.login-field label{
-  font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;
-  letter-spacing:0.2em;text-transform:uppercase;color:#555;
-}
-.login-field input{
-  background:#1e1e1e;border:1px solid rgba(255,255,255,0.08);
-  color:#f0f0f0;font-family:'Barlow',sans-serif;font-size:1rem;
-  padding:0.75rem 1rem;outline:none;-webkit-appearance:none;width:100%;
-  transition:border-color 0.15s;
-}
-.login-field input:focus{border-color:#d42b2b;}
-.login-btn{
-  width:100%;background:#d42b2b;color:#fff;border:none;
-  font-family:'Barlow Condensed',sans-serif;font-size:1rem;
-  letter-spacing:0.2em;text-transform:uppercase;
-  padding:0.9rem;cursor:pointer;min-height:48px;
-  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
-}
-.login-btn:active{background:#ff3b3b;}
-.login-error{
-  color:#ff6b6b;font-size:0.8rem;text-align:center;
-  margin-top:0.75rem;font-family:'Barlow Condensed',sans-serif;
-  letter-spacing:0.1em;display:none;
-}
-.login-error.show{display:block;}
+  .login-screen { position:fixed;inset:0;background:#0a0a0a;display:flex;align-items:center;justify-content:center;z-index:99999;padding:2rem; }
+  .login-screen.hidden { display:none; }
+  .login-box { background:#141414;border:1px solid rgba(255,255,255,0.07);width:100%;max-width:360px;overflow:hidden; }
+  .login-header { background:#1a1a1a;padding:1.8rem;text-align:center;border-bottom:1px solid rgba(255,255,255,0.07); }
+  .login-logo { font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:0.2em;color:#f0f0f0; }
+  .login-logo span { color:#d42b2b; }
+  .login-sub { font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:#555;margin-top:0.3rem; }
+  .login-body { padding:1.8rem; }
+  .login-field { display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem; }
+  .login-field label { font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#555; }
+  .login-field input { background:#1e1e1e;border:1px solid rgba(255,255,255,0.08);color:#f0f0f0;font-family:'Barlow',sans-serif;font-size:1rem;padding:0.75rem 1rem;outline:none;-webkit-appearance:none;width:100%;transition:border-color 0.15s; }
+  .login-field input:focus { border-color:#d42b2b; }
+  .login-btn { width:100%;background:#d42b2b;color:#fff;border:none;font-family:'Barlow Condensed',sans-serif;font-size:1rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.9rem;cursor:pointer;min-height:48px;touch-action:manipulation;-webkit-tap-highlight-color:transparent; }
+  .login-error { color:#ff6b6b;font-size:0.8rem;text-align:center;margin-top:0.75rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.1em;display:none; }
+  .login-error.show { display:block; }
 </style>
 </head>
 <body>
@@ -608,6 +416,8 @@
   </div>
 </div>
 
+
+
 <div class="screen-wrapper">
 
   <!-- TOP BAR -->
@@ -615,9 +425,10 @@
     <div class="brand">AUTO SERVICES</div>
     <div class="top-actions">
       <button class="btn btn-outline" ontouchstart="printReport()" onclick="printReport()">🖨 Print / Save PDF</button>
-      <button class="btn btn-outline" ontouchstart="saveToTracker()" onclick="saveToTracker()">💾 Save to Tracker</button>
+      <button class="btn btn-outline" ontouchstart="generateInvoice()" onclick="generateInvoice()" title="Opens the Invoice page with all details pre-filled from this report">🧾 Open Invoice →</button>
+      <button class="btn btn-green" ontouchstart="saveToTracker()" onclick="saveToTracker()">💾 Save to Tracker</button>
       <button class="btn btn-red" ontouchstart="clearAll()" onclick="clearAll()">New Report</button>
-      <button class="btn btn-outline" ontouchstart="signOut()" onclick="signOut()" style="border-color:rgba(212,43,43,0.5);color:#d42b2b;min-height:44px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;">Sign Out</button>
+      <button class="btn btn-outline" ontouchstart="signOut()" onclick="signOut()" style="border-color:rgba(212,43,43,0.5);color:#d42b2b;">Sign Out</button>
     </div>
   </div>
 
@@ -631,17 +442,18 @@
       <div class="field-grid" style="margin-bottom:1rem;">
         <div class="field">
           <label>Customer Name</label>
-          <input type="text" placeholder="Full name">
+          <input type="text" id="customerName" placeholder="Full name">
         </div>
         <div class="field">
           <label>Phone Number</label>
-          <input type="tel" placeholder="07700 900000">
+          <input type="tel" id="customerPhone" placeholder="07700 900000">
         </div>
         <div class="field">
           <label>Email Address</label>
-          <input type="email" placeholder="customer@email.com">
+          <input type="email" id="customerEmail" placeholder="customer@email.com">
         </div>
       </div>
+      <!-- REMOVED: Report Number field. Now 3-column grid for vehicle details -->
       <div class="field-grid field-grid-4">
         <div class="field">
           <label>Registration</label>
@@ -649,27 +461,27 @@
         </div>
         <div class="field">
           <label>Make & Model</label>
-          <input type="text" placeholder="Ford Focus">
+          <input type="text" id="makeModel" placeholder="Ford Focus">
         </div>
         <div class="field">
           <label>Year</label>
-          <input type="text" placeholder="2019">
+          <input type="text" id="carYear" placeholder="2019">
         </div>
         <div class="field">
           <label>Colour</label>
-          <input type="text" placeholder="Silver">
+          <input type="text" id="carColour" placeholder="Silver">
         </div>
         <div class="field">
           <label>Mileage</label>
-          <input type="text" placeholder="42,500">
+          <input type="text" id="mileage" placeholder="42,500">
         </div>
         <div class="field">
           <label>Engine Size</label>
-          <input type="text" placeholder="1.5L">
+          <input type="text" id="engineSize" placeholder="1.5L">
         </div>
         <div class="field">
           <label>Fuel Type</label>
-          <select>
+          <select id="fuelType">
             <option value="">Select</option>
             <option>Petrol</option>
             <option>Diesel</option>
@@ -683,15 +495,11 @@
         </div>
         <div class="field">
           <label>Technician</label>
-          <input type="text" placeholder="Name">
+          <input type="text" id="techName" placeholder="Name">
         </div>
-        <div class="field">
-          <label>Report Number</label>
-          <input type="text" id="reportNum" placeholder="Auto-generated" readonly style="color:var(--dim);">
-        </div>
-        <div class="field col-span-2">
+        <div class="field col-span-3">
           <label>Service Type</label>
-          <select>
+          <select id="serviceType">
             <option>Full Car Service</option>
             <option>Health Check Only</option>
             <option>Brake Discs & Pads</option>
@@ -713,7 +521,6 @@
     </div>
     <div class="card-body" id="healthCheckBody">
 
-      <!-- BRAKES -->
       <div class="check-section-title">Brakes</div>
       <div id="checkItems">
 
@@ -777,7 +584,6 @@
           <div class="check-notes" style="grid-column:span 2"><input type="text" placeholder="Notes"></div>
         </div>
 
-        <!-- ENGINE -->
         <div class="check-section-title">Engine & Fluids</div>
 
         <div class="check-row">
@@ -840,7 +646,6 @@
           <div class="check-notes" style="grid-column:span 2"><input type="text" placeholder="Notes"></div>
         </div>
 
-        <!-- TYRES -->
         <div class="check-section-title">Tyres</div>
 
         <div class="check-row">
@@ -873,7 +678,6 @@
           <div class="check-notes" style="grid-column:span 2"><input type="text" placeholder="Notes"></div>
         </div>
 
-        <!-- LIGHTS -->
         <div class="check-section-title">Lights & Electrics</div>
 
         <div class="check-row">
@@ -916,7 +720,6 @@
           <div class="check-notes" style="grid-column:span 2"><input type="text" placeholder="Notes"></div>
         </div>
 
-        <!-- STEERING & SUSPENSION -->
         <div class="check-section-title">Steering & Suspension</div>
 
         <div class="check-row">
@@ -949,7 +752,6 @@
           <div class="check-notes" style="grid-column:span 2"><input type="text" placeholder="Notes"></div>
         </div>
 
-        <!-- EXHAUST & BODY -->
         <div class="check-section-title">Exhaust & Body</div>
 
         <div class="check-row">
@@ -982,10 +784,9 @@
           <div class="check-notes" style="grid-column:span 2"><input type="text" placeholder="Notes"></div>
         </div>
 
-      </div><!-- end checkItems -->
+      </div>
     </div>
 
-    <!-- SUMMARY BAR -->
     <div class="summary-bar" id="summaryBar">
       <div class="summary-pill pill-pass"><div class="pill-dot"></div><span class="pill-count" id="passCount">0</span>&nbsp;Pass</div>
       <div class="summary-pill pill-advisory"><div class="pill-dot"></div><span class="pill-count" id="advisoryCount">0</span>&nbsp;Advisory</div>
@@ -1042,16 +843,16 @@
     <div class="card-body">
       <div class="field" style="margin-bottom:1rem;">
         <label>Technician's Advisory Notes</label>
-        <textarea placeholder="Detail any advisories, items to monitor, or recommended future work here. Be specific — the customer will read this."></textarea>
+        <textarea id="advisoryNotes" placeholder="Detail any advisories, items to monitor, or recommended future work here. Be specific — the customer will read this."></textarea>
       </div>
       <div class="field-grid field-grid-2">
         <div class="field">
           <label>Next Service Due (Date)</label>
-          <input type="date">
+          <input type="date" id="nextServiceDate">
         </div>
         <div class="field">
           <label>Next Service Due (Mileage)</label>
-          <input type="text" placeholder="e.g. 52,500">
+          <input type="text" id="nextServiceMileage" placeholder="e.g. 52,500">
         </div>
       </div>
     </div>
@@ -1096,14 +897,12 @@
     </div>
   </div>
 
-</div><!-- end screen-wrapper -->
+</div>
 
 <script>
-  // ── SET DATE & REPORT NUMBER ──
+  // ── INIT ──
   window.onload = () => {
     document.getElementById('visitDate').value = new Date().toISOString().split('T')[0];
-    const rn = 'SR-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random()*9000)+1000);
-    document.getElementById('reportNum').value = rn;
     initSignatures();
     updateSummary();
   };
@@ -1115,19 +914,19 @@
     const radios = document.querySelectorAll('#checkItems input[type="radio"]:checked');
     let pass = 0, advisory = 0, fail = 0;
     radios.forEach(r => {
-      if (r.value === 'pass') pass++;
-      else if (r.value === 'advisory') advisory++;
-      else if (r.value === 'fail') fail++;
+      if(r.value === 'pass') pass++;
+      else if(r.value === 'advisory') advisory++;
+      else if(r.value === 'fail') fail++;
     });
     document.getElementById('passCount').textContent = pass;
     document.getElementById('advisoryCount').textContent = advisory;
     document.getElementById('failCount').textContent = fail;
   }
 
-  // ── WORK TABLE CALCULATIONS ──
+  // ── WORK TABLE ──
   function updateTotals() {
     let total = 0;
-    document.querySelectorAll('.rowtotal').forEach(i => total += parseFloat(i.value) || 0);
+    document.querySelectorAll('.rowtotal').forEach(i => total += parseFloat(i.value)||0);
     const grand = total * 1.2;
     document.getElementById('grandTotal').textContent = '£' + grand.toFixed(2);
   }
@@ -1135,13 +934,12 @@
   function addRow() {
     const tbody = document.getElementById('workBody');
     const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><input type="text" placeholder="Description of work"></td>
+    tr.innerHTML = `<td><input type="text" placeholder="Description of work"></td>
       <td><input type="number" placeholder="0.00" class="rowtotal" oninput="updateTotals()"></td>`;
     tbody.appendChild(tr);
   }
 
-  // ── SIGNATURE PADS ──
+  // ── SIGNATURES ──
   function initSignatures() {
     ['techSig', 'custSig'].forEach(id => {
       const canvas = document.getElementById(id);
@@ -1152,36 +950,35 @@
       ctx.lineWidth = 1.5;
       ctx.lineCap = 'round';
       let drawing = false;
-      canvas.addEventListener('mousedown', e => { drawing = true; ctx.beginPath(); ctx.moveTo(...pos(e, canvas)); });
-      canvas.addEventListener('mousemove', e => { if (!drawing) return; ctx.lineTo(...pos(e, canvas)); ctx.stroke(); });
-      canvas.addEventListener('mouseup', () => drawing = false);
-      canvas.addEventListener('mouseleave', () => drawing = false);
-      canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing = true; ctx.beginPath(); ctx.moveTo(...pos(e.touches[0], canvas)); });
-      canvas.addEventListener('touchmove', e => { e.preventDefault(); if (!drawing) return; ctx.lineTo(...pos(e.touches[0], canvas)); ctx.stroke(); });
-      canvas.addEventListener('touchend', () => drawing = false);
+      canvas.addEventListener('mousedown', e => { drawing=true; ctx.beginPath(); ctx.moveTo(...pos(e,canvas)); });
+      canvas.addEventListener('mousemove', e => { if(!drawing) return; ctx.lineTo(...pos(e,canvas)); ctx.stroke(); });
+      canvas.addEventListener('mouseup', ()=>drawing=false);
+      canvas.addEventListener('mouseleave', ()=>drawing=false);
+      canvas.addEventListener('touchstart', e => { e.preventDefault(); drawing=true; ctx.beginPath(); ctx.moveTo(...pos(e.touches[0],canvas)); });
+      canvas.addEventListener('touchmove', e => { e.preventDefault(); if(!drawing) return; ctx.lineTo(...pos(e.touches[0],canvas)); ctx.stroke(); });
+      canvas.addEventListener('touchend', ()=>drawing=false);
     });
   }
 
   function pos(e, canvas) {
     const r = canvas.getBoundingClientRect();
-    return [e.clientX - r.left, e.clientY - r.top];
+    return [e.clientX-r.left, e.clientY-r.top];
   }
 
   function clearSig(id) {
     const canvas = document.getElementById(id);
-    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);
   }
 
   // ── CLEAR ALL ──
   function clearAll() {
     document.querySelectorAll('input:not([readonly]), select, textarea').forEach(el => {
-      if (el.type === 'radio' || el.type === 'checkbox') el.checked = false;
-      else el.value = '';
+      if(el.type==='radio'||el.type==='checkbox') el.checked=false;
+      else el.value='';
     });
     document.getElementById('visitDate').value = new Date().toISOString().split('T')[0];
-    document.getElementById('reportNum').value = 'SR-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random()*9000)+1000);
-    ['techSig','custSig'].forEach(id => {
-      const c = document.getElementById(id);
+    ['techSig','custSig'].forEach(id=>{
+      const c=document.getElementById(id);
       c.getContext('2d').clearRect(0,0,c.width,c.height);
     });
     updateTotals();
@@ -1205,26 +1002,14 @@
     }
   }
 
-  // Check if already logged in
   if(sessionStorage.getItem('report_auth') && USERS[sessionStorage.getItem('report_auth')]) {
     document.getElementById('loginScreen').classList.add('hidden');
   }
 
-  // ── PRINT ──
   function printReport() {
-    const isMobile = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    if(isMobile) {
-      const btn = document.querySelector('[ontouchstart="printReport()"]');
-      const orig = btn.textContent;
-      btn.textContent = '👆 Use Share → Print';
-      btn.style.color = 'var(--amber)';
-      setTimeout(()=>{ btn.textContent=orig; btn.style.color=''; }, 3000);
-    } else {
-      window.print();
-    }
+    window.print();
   }
 
-  // ── SIGN OUT ──
   function signOut() {
     sessionStorage.removeItem('report_auth');
     location.reload();
@@ -1235,12 +1020,27 @@
   const SK = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6YndqanlwZGNlamN3dHdhbHNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3NTQ0NDcsImV4cCI6MjA5NjMzMDQ0N30.XCgZ2_3SRrJYwpm43rnsPTCnE_zT6x4VzILUF_AmR1M';
   const SH = {'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json','Prefer':'return=minimal'};
 
-  // ── HEALTH CHECK TRACKER ──
-  function saveToTracker() {
+  // ── COLLECT REPORT DATA ──
+  function collectReportData() {
     const reg = document.getElementById('reg').value.trim() || 'Unknown';
-    const customer = document.querySelector('input[placeholder="Full name"]').value.trim() || 'Unknown';
+    const customer = document.getElementById('customerName').value.trim() || 'Unknown';
     const date = document.getElementById('visitDate').value || new Date().toISOString().split('T')[0];
-    const reportNum = document.getElementById('reportNum').value;
+    // Generate a unique report ID each time (not shown to user)
+    const reportNum = 'SR-' + new Date().getFullYear() + '-' + Date.now().toString().slice(-5);
+
+    // Collect work items
+    const workItems = [];
+    document.querySelectorAll('#workBody tr').forEach(row => {
+      const desc = row.querySelector('td:first-child input');
+      const cost = row.querySelector('td:last-child input');
+      if(desc && desc.value.trim()) {
+        workItems.push({ description: desc.value.trim(), cost: parseFloat(cost?.value)||0 });
+      }
+    });
+
+    // Total
+    const subtotal = workItems.reduce((a,i)=>a+i.cost,0);
+    const grandTotal = subtotal * 1.2;
 
     // Collect health check results
     const checks = [];
@@ -1249,60 +1049,113 @@
       const checked = row.querySelector('input[type="radio"]:checked');
       const notes = row.querySelector('.check-notes input');
       if(label && checked) {
-        checks.push({
-          item: label.textContent.trim(),
-          result: checked.value,
-          notes: notes ? notes.value : ''
-        });
+        checks.push({ item: label.textContent.trim(), result: checked.value, notes: notes ? notes.value : '' });
       }
     });
 
-    // Collect advisory notes
-    const advisory = document.querySelector('textarea[placeholder*="Advisory"]') ||
-                     document.querySelector('textarea[placeholder*="advisory"]');
-    const advisoryText = advisory ? advisory.value : '';
-
-    // Count results
+    const advisoryText = document.getElementById('advisoryNotes').value;
     const pass = checks.filter(c=>c.result==='pass').length;
     const adv = checks.filter(c=>c.result==='advisory').length;
     const fail = checks.filter(c=>c.result==='fail').length;
 
-    // Build report object
-    const report = {
+    return {
       id: reportNum,
       date, reg, customer,
+      makeModel: document.getElementById('makeModel').value,
+      carYear: document.getElementById('carYear').value,
+      mileage: document.getElementById('mileage').value,
+      techName: document.getElementById('techName').value,
+      serviceType: document.getElementById('serviceType').value,
+      phone: document.getElementById('customerPhone').value,
+      email: document.getElementById('customerEmail').value,
       pass, advisory: adv, fail,
       advisoryNotes: advisoryText,
+      workItems,
+      grandTotal,
+      nextServiceDate: document.getElementById('nextServiceDate').value,
+      nextServiceMileage: document.getElementById('nextServiceMileage').value,
       checks,
       savedAt: new Date().toISOString()
     };
+  }
 
-    // Save to tracker storage
+  // ── SAVE TO TRACKER (FIXED) ──
+  function saveToTracker() {
+    const report = collectReportData();
+
+    // Save to localStorage tracker
     let tracker = [];
     try {
       const saved = localStorage.getItem('health_tracker');
       if(saved) tracker = JSON.parse(saved);
     } catch(e){}
 
-    // Check if report already exists, update if so
-    const existing = tracker.findIndex(r=>r.id===reportNum);
-    if(existing>-1) tracker[existing] = report;
-    else tracker.unshift(report);
+    // Always add as new record (unique id each time)
+    tracker.unshift(report);
+    // Keep last 500 reports
+    if(tracker.length > 500) tracker = tracker.slice(0, 500);
 
     try {
       localStorage.setItem('health_tracker', JSON.stringify(tracker));
-      // Push to Supabase
-      const supaObj = {...report, checks: JSON.stringify(report.checks)};
-      fetch(SB+'/reports', {method:'POST', headers:SH, body:JSON.stringify(supaObj)})
-        .catch(()=>{
-          // If insert fails try update
-          fetch(SB+'/reports?id=eq.'+report.id, {method:'PATCH', headers:{...SH,'Prefer':'return=minimal'}, body:JSON.stringify(supaObj)}).catch(()=>{});
-        });
-      const btn = document.querySelector('[ontouchstart="saveToTracker()"]');
-      if(btn){const orig=btn.textContent;btn.textContent='✅ Saved!';btn.style.color='var(--green)';setTimeout(()=>{btn.textContent=orig;btn.style.color='';},2000);}
-    } catch(e) {
-      console.log('Could not save to tracker.');
+    } catch(e) { console.warn('localStorage full'); }
+
+    // Push to Supabase
+    const supaObj = { ...report, checks: JSON.stringify(report.checks), workItems: JSON.stringify(report.workItems) };
+    fetch(SB+'/reports', { method:'POST', headers:SH, body:JSON.stringify(supaObj) })
+      .catch(() => {
+        // Silently fail — local save is the primary
+      });
+
+    // Show confirmation
+    const btn = document.querySelector('.btn-green');
+    if(btn) {
+      const orig = btn.textContent;
+      btn.textContent = '✅ Saved to Tracker!';
+      btn.style.background = '#2aaa55';
+      btn.style.color = '#fff';
+      setTimeout(()=>{ btn.textContent=orig; btn.style.background=''; btn.style.color=''; }, 2500);
     }
+  }
+
+  // ── GENERATE INVOICE — saves data to sessionStorage then navigates to Invoice page ──
+  // The Invoice page reads sessionStorage on load and pre-fills every field automatically.
+  const INVOICE_PAGE_URL = 'https://herczeg1901.github.io/Invoice/';
+
+  function generateInvoice() {
+    const report = collectReportData();
+
+    // Warn if both customer and reg are empty, but don't block
+    if(!report.reg && !report.customer) {
+      if(!confirm('No customer name or registration entered yet. Generate invoice anyway?')) return;
+    }
+
+    // Build the prefill payload — invoice.html reads this on load
+    const prefill = {
+      customer:  report.customer  || '',
+      reg:       (report.reg      || '').toUpperCase(),
+      model:     [report.makeModel, report.carYear].filter(Boolean).join(' '),
+      tech:      report.techName  || '',
+      phone:     report.phone     || '',
+      email:     report.email     || '',
+      notes:     report.advisoryNotes      || '',
+      nextServiceDate:    report.nextServiceDate    || '',
+      nextServiceMileage: report.nextServiceMileage || '',
+      lines: (report.workItems || []).map(item => ({
+        desc: item.description || '',
+        cost: item.cost        || 0
+      }))
+    };
+
+    try {
+      sessionStorage.setItem('invoice_prefill', JSON.stringify(prefill));
+    } catch(e) {
+      alert('Could not pass data to invoice — please fill in the invoice manually.');
+      window.open(INVOICE_PAGE_URL, '_blank');
+      return;
+    }
+
+    // Navigate to Invoice page — same tab keeps sessionStorage alive
+    window.location.href = INVOICE_PAGE_URL;
   }
 </script>
 </body>
