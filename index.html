@@ -305,6 +305,123 @@
   .pill-advisory .pill-count { color: var(--advisory-border); }
   .pill-fail .pill-count { color: var(--fail-border); }
 
+  /* CUSTOMER LOOKUP BANNER */
+  .lookup-banner {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: var(--pass-bg);
+    border: 1px solid var(--pass-border);
+    border-left: 4px solid var(--pass-border);
+    color: var(--pass-border);
+    padding: 0.65rem 1rem;
+    margin-bottom: 1rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+  }
+  .lookup-banner.show { display: flex; }
+  .lookup-banner button {
+    background: none; border: 1px solid var(--pass-border);
+    color: var(--pass-border); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.3rem 0.7rem; cursor: pointer; transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .lookup-banner button:hover { background: var(--pass-border); color: #fff; }
+
+  /* PHOTO GALLERY */
+  .photo-upload-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .photo-upload-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px dashed rgba(255,255,255,0.2);
+    color: var(--chrome);
+    padding: 0.9rem 1.4rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex: 1;
+    min-width: 160px;
+    text-align: center;
+    min-height: 44px;
+  }
+  .photo-upload-btn:hover { border-color: var(--red); color: var(--red); }
+  .photo-upload-btn input[type="file"] { display: none; }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+  .photo-item {
+    background: var(--steel);
+    border: 1px solid rgba(255,255,255,0.07);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .photo-item img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+    background: #000;
+  }
+  .photo-item-caption {
+    background: transparent;
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    color: var(--chrome);
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.78rem;
+    padding: 0.4rem 0.5rem;
+    outline: none;
+    width: 100%;
+  }
+  .photo-item-caption:focus { background: rgba(255,255,255,0.03); }
+  .photo-item-caption::placeholder { color: var(--dim); }
+  .photo-item-remove {
+    background: none;
+    border: none;
+    color: var(--dim);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.5rem;
+    cursor: pointer;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    transition: color 0.15s;
+  }
+  .photo-item-remove:hover { color: var(--red); }
+
+  .photo-item-caption-print { display: none; }
+
+  .photo-lightbox {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 99998;
+    align-items: center; justify-content: center;
+    padding: 1rem;
+    cursor: zoom-out;
+  }
+  .photo-lightbox.open { display: flex; }
+  .photo-lightbox img {
+    max-width: 100%; max-height: 90vh;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  }
+
   /* INVOICE MODAL */
   .modal-overlay {
     display: none; position: fixed; inset: 0;
@@ -344,7 +461,7 @@
   @media print {
     @page { size: A4; margin: 12mm 14mm; }
     body { background: #fff !important; color: #111 !important; padding: 0; font-size: 11px; }
-    .top-actions, .add-row-btn, .sig-clear, .modal-overlay { display: none !important; }
+    .top-actions, .add-row-btn, .sig-clear, .modal-overlay, .lookup-banner, .photo-upload-row, .photo-item-remove, .photo-item-caption, .photo-lightbox { display: none !important; }
     .screen-wrapper { max-width: 100%; }
     .top-bar { border-bottom: 2px solid #111; margin-bottom: 10px; padding-bottom: 8px; }
     .brand { color: #111 !important; font-size: 1.4rem; }
@@ -373,6 +490,10 @@
     .sig-box-label { color: #555 !important; }
     .summary-bar { background: #f5f5f5 !important; border-top: 1px solid #ccc !important; }
     .summary-pill { color: #111; }
+    .photo-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 6px !important; }
+    .photo-item { border: 1px solid #ccc !important; background: #fff !important; break-inside: avoid; }
+    .photo-item img { height: 90px !important; }
+    .photo-item-caption-print { font-size: 9px; color: #555; padding: 3px 5px; border-top: 1px solid #eee; display: block !important; }
   }
 
   .login-screen { position:fixed;inset:0;background:#0a0a0a;display:flex;align-items:center;justify-content:center;z-index:99999;padding:2rem; }
@@ -439,10 +560,16 @@
       <span class="card-title">Vehicle & Customer Details</span>
     </div>
     <div class="card-body">
+      <!-- CUSTOMER LOOKUP BANNER -->
+      <div class="lookup-banner" id="lookupBanner">
+        <span id="lookupBannerText">✅ Found a previous record for this vehicle — details loaded.</span>
+        <button onclick="document.getElementById('lookupBanner').classList.remove('show')">Dismiss</button>
+      </div>
       <div class="field-grid" style="margin-bottom:1rem;">
         <div class="field">
           <label>Customer Name</label>
-          <input type="text" id="customerName" placeholder="Full name">
+          <input type="text" id="customerName" list="customerNameList" placeholder="Full name" oninput="onCustomerNameInput()">
+          <datalist id="customerNameList"></datalist>
         </div>
         <div class="field">
           <label>Phone Number</label>
@@ -457,7 +584,7 @@
       <div class="field-grid field-grid-4">
         <div class="field">
           <label>Registration</label>
-          <input type="text" id="reg" placeholder="AB12 CDE" style="text-transform:uppercase;font-weight:600;font-size:1rem;letter-spacing:0.1em;">
+          <input type="text" id="reg" placeholder="AB12 CDE" style="text-transform:uppercase;font-weight:600;font-size:1rem;letter-spacing:0.1em;" oninput="this.value=this.value.toUpperCase()" onblur="lookupCustomerByReg()">
         </div>
         <div class="field">
           <label>Make & Model</label>
@@ -858,6 +985,28 @@
     </div>
   </div>
 
+  <!-- VEHICLE PHOTOS -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-header-icon">📷</span>
+      <span class="card-title">Vehicle Photos</span>
+    </div>
+    <div class="card-body">
+      <div class="photo-upload-row">
+        <label class="photo-upload-btn">
+          📷 Take Photo
+          <input type="file" accept="image/*" capture="environment" multiple onchange="handlePhotoFiles(this.files)">
+        </label>
+        <label class="photo-upload-btn">
+          🖼 Choose from Library
+          <input type="file" accept="image/*" multiple onchange="handlePhotoFiles(this.files)">
+        </label>
+      </div>
+      <div class="photo-grid" id="photoGrid"></div>
+      <p style="font-size:0.78rem;color:var(--dim);margin-top:1rem;line-height:1.6;" id="photoHint">Add photos of any damage, worn parts, or items flagged in the health check. Tap a photo to view it full-size, or add a short caption underneath. Photos are stored on this device — they print with the report and stay attached when saved to the tracker.</p>
+    </div>
+  </div>
+
   <!-- SIGNATURES -->
   <div class="card">
     <div class="card-header">
@@ -899,12 +1048,20 @@
 
 </div>
 
+<!-- PHOTO LIGHTBOX -->
+<div class="photo-lightbox" id="photoLightbox" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" alt="Photo preview">
+</div>
+
 <script>
   // ── INIT ──
   window.onload = () => {
     document.getElementById('visitDate').value = new Date().toISOString().split('T')[0];
     initSignatures();
     updateSummary();
+    renderPhotoGrid();
+    populateCustomerNameDatalist();
+    pullCustomersFromSupabase();
   };
 
   // ── HEALTH CHECK LIVE SUMMARY ──
@@ -972,8 +1129,10 @@
 
   // ── CLEAR ALL ──
   function clearAll() {
+    if(!confirm('Start a new report? Any unsaved changes will be lost.')) return;
     document.querySelectorAll('input:not([readonly]), select, textarea').forEach(el => {
       if(el.type==='radio'||el.type==='checkbox') el.checked=false;
+      else if(el.type==='file') { /* leave file inputs alone */ }
       else el.value='';
     });
     document.getElementById('visitDate').value = new Date().toISOString().split('T')[0];
@@ -981,6 +1140,9 @@
       const c=document.getElementById(id);
       c.getContext('2d').clearRect(0,0,c.width,c.height);
     });
+    reportPhotos = [];
+    renderPhotoGrid();
+    document.getElementById('lookupBanner').classList.remove('show');
     updateTotals();
     updateSummary();
   }
@@ -1019,6 +1181,240 @@
   const SB = 'https://hzbwjjypdcejcwtwalsp.supabase.co/rest/v1';
   const SK = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6YndqanlwZGNlamN3dHdhbHNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3NTQ0NDcsImV4cCI6MjA5NjMzMDQ0N30.XCgZ2_3SRrJYwpm43rnsPTCnE_zT6x4VzILUF_AmR1M';
   const SH = {'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json','Prefer':'return=minimal'};
+
+  // ══════════════════════════════════════
+  // CUSTOMER DATABASE
+  // ══════════════════════════════════════
+  const CUSTOMER_DB_KEY = 'customer_db';
+
+  function loadCustomerDB() {
+    try {
+      const saved = localStorage.getItem(CUSTOMER_DB_KEY);
+      return saved ? JSON.parse(saved) : {};
+    } catch(e) { return {}; }
+  }
+
+  function saveCustomerDB(db) {
+    try { localStorage.setItem(CUSTOMER_DB_KEY, JSON.stringify(db)); } catch(e){}
+  }
+
+  // Pull all known customers from Supabase (best effort — table may not exist yet)
+  function pullCustomersFromSupabase() {
+    fetch(SB+'/customers?select=*', { headers: SH })
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(rows => {
+        if(!Array.isArray(rows)) return;
+        const db = loadCustomerDB();
+        rows.forEach(row => {
+          if(row.reg) db[row.reg.toUpperCase()] = row;
+        });
+        saveCustomerDB(db);
+        populateCustomerNameDatalist();
+      })
+      .catch(() => { /* table may not exist yet — local data still works */ });
+  }
+
+  // Save/update a customer record locally and push to Supabase
+  function upsertCustomer(report) {
+    if(!report.reg || report.reg === 'Unknown') return;
+
+    const regKey = report.reg.toUpperCase();
+    const db = loadCustomerDB();
+
+    db[regKey] = {
+      reg: regKey,
+      name: report.customer !== 'Unknown' ? report.customer : (db[regKey]?.name || ''),
+      phone: report.phone || db[regKey]?.phone || '',
+      email: report.email || db[regKey]?.email || '',
+      makeModel: report.makeModel || db[regKey]?.makeModel || '',
+      carYear: report.carYear || db[regKey]?.carYear || '',
+      carColour: report.carColour || db[regKey]?.carColour || '',
+      engineSize: report.engineSize || db[regKey]?.engineSize || '',
+      fuelType: report.fuelType || db[regKey]?.fuelType || '',
+      mileage: report.mileage || db[regKey]?.mileage || '',
+      lastVisit: report.date,
+      updatedat: Date.now()
+    };
+
+    saveCustomerDB(db);
+    populateCustomerNameDatalist();
+
+    // Best-effort push to Supabase — requires a 'customers' table with 'reg' as the primary/unique key.
+    // Uses upsert via Prefer: resolution=merge-duplicates (needs an on_conflict target).
+    fetch(SB+'/customers?on_conflict=reg', {
+      method: 'POST',
+      headers: { ...SH, 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify(db[regKey])
+    }).catch(() => { /* table may not exist yet — local cache still works */ });
+  }
+
+  // Look up a vehicle by registration and auto-fill the form if found
+  function lookupCustomerByReg() {
+    const regInput = document.getElementById('reg');
+    const reg = regInput.value.trim().toUpperCase();
+    regInput.value = reg;
+    if(!reg) return;
+
+    const db = loadCustomerDB();
+    const record = db[reg];
+    if(!record) return;
+
+    // Only fill fields that are currently empty — never overwrite what the technician has typed
+    const fillIfEmpty = (id, value) => {
+      const el = document.getElementById(id);
+      if(el && !el.value && value) el.value = value;
+    };
+
+    fillIfEmpty('customerName', record.name);
+    fillIfEmpty('customerPhone', record.phone);
+    fillIfEmpty('customerEmail', record.email);
+    fillIfEmpty('makeModel', record.makeModel);
+    fillIfEmpty('carYear', record.carYear);
+    fillIfEmpty('carColour', record.carColour);
+    fillIfEmpty('engineSize', record.engineSize);
+    if(record.fuelType) {
+      const fuelEl = document.getElementById('fuelType');
+      if(fuelEl && !fuelEl.value) fuelEl.value = record.fuelType;
+    }
+
+    // Show confirmation banner with last visit info
+    const banner = document.getElementById('lookupBanner');
+    const bannerText = document.getElementById('lookupBannerText');
+    let msg = `✅ Found a previous record for ${reg}`;
+    if(record.name) msg += ` — ${record.name}`;
+    if(record.lastVisit) msg += ` (last visit: ${record.lastVisit})`;
+    if(record.mileage) msg += `. Last recorded mileage: ${record.mileage}.`;
+    bannerText.textContent = msg;
+    banner.classList.add('show');
+  }
+
+  // Populate the customer name datalist with all known customer names
+  function populateCustomerNameDatalist() {
+    const db = loadCustomerDB();
+    const names = new Map(); // name -> reg (most recent)
+    Object.values(db).forEach(rec => {
+      if(rec.name) names.set(rec.name, rec.reg);
+    });
+    const datalist = document.getElementById('customerNameList');
+    if(!datalist) return;
+    datalist.innerHTML = '';
+    names.forEach((reg, name) => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.label = reg;
+      datalist.appendChild(opt);
+    });
+  }
+
+  // When the customer name field matches a known customer exactly, offer to fill in their vehicle reg
+  function onCustomerNameInput() {
+    const nameInput = document.getElementById('customerName');
+    const name = nameInput.value.trim();
+    if(!name) return;
+
+    const regInput = document.getElementById('reg');
+    if(regInput.value.trim()) return; // don't overwrite an entered reg
+
+    const db = loadCustomerDB();
+    // Find an exact (case-insensitive) name match
+    const match = Object.values(db).find(rec => rec.name && rec.name.toLowerCase() === name.toLowerCase());
+    if(match) {
+      regInput.value = match.reg;
+      lookupCustomerByReg();
+    }
+  }
+
+  // ══════════════════════════════════════
+  // VEHICLE PHOTOS
+  // ══════════════════════════════════════
+  let reportPhotos = []; // { data: 'data:image/jpeg;base64,...', caption: '' }
+  const MAX_PHOTOS = 12;
+  const MAX_PHOTO_WIDTH = 1000;
+  const PHOTO_QUALITY = 0.6;
+
+  // Resize/compress an image file via canvas, returns a Promise<dataURL>
+  function resizeImage(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          let { width, height } = img;
+          if(width > MAX_PHOTO_WIDTH) {
+            height = Math.round(height * (MAX_PHOTO_WIDTH / width));
+            width = MAX_PHOTO_WIDTH;
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/jpeg', PHOTO_QUALITY));
+        };
+        img.onerror = reject;
+        img.src = e.target.result;
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function handlePhotoFiles(fileList) {
+    if(!fileList || !fileList.length) return;
+
+    if(reportPhotos.length >= MAX_PHOTOS) {
+      alert(`You can attach a maximum of ${MAX_PHOTOS} photos per report.`);
+      return;
+    }
+
+    const files = Array.from(fileList).slice(0, MAX_PHOTOS - reportPhotos.length);
+
+    Promise.all(files.map(f => resizeImage(f).catch(()=>null)))
+      .then(results => {
+        results.forEach(dataURL => {
+          if(dataURL) reportPhotos.push({ data: dataURL, caption: '' });
+        });
+        renderPhotoGrid();
+      });
+  }
+
+  function renderPhotoGrid() {
+    const grid = document.getElementById('photoGrid');
+    if(!grid) return;
+
+    if(!reportPhotos.length) {
+      grid.innerHTML = '';
+      return;
+    }
+
+    grid.innerHTML = reportPhotos.map((photo, i) => `
+      <div class="photo-item">
+        <img src="${photo.data}" alt="Vehicle photo ${i+1}" onclick="openLightbox(${i})">
+        <input type="text" class="photo-item-caption" placeholder="Add caption..." value="${(photo.caption||'').replace(/"/g,'&quot;')}" oninput="updatePhotoCaption(${i}, this.value)">
+        <div class="photo-item-caption-print">${photo.caption ? photo.caption.replace(/</g,'&lt;') : ''}</div>
+        <button class="photo-item-remove" onclick="removePhoto(${i})">🗑 Remove</button>
+      </div>`).join('');
+  }
+
+  function updatePhotoCaption(index, value) {
+    if(reportPhotos[index]) reportPhotos[index].caption = value;
+  }
+
+  function removePhoto(index) {
+    reportPhotos.splice(index, 1);
+    renderPhotoGrid();
+  }
+
+  function openLightbox(index) {
+    const photo = reportPhotos[index];
+    if(!photo) return;
+    document.getElementById('lightboxImg').src = photo.data;
+    document.getElementById('photoLightbox').classList.add('open');
+  }
+
+  function closeLightbox() {
+    document.getElementById('photoLightbox').classList.remove('open');
+  }
 
   // ── COLLECT REPORT DATA ──
   function collectReportData() {
@@ -1063,7 +1459,10 @@
       date, reg, customer,
       makeModel: document.getElementById('makeModel').value,
       carYear: document.getElementById('carYear').value,
+      carColour: document.getElementById('carColour').value,
       mileage: document.getElementById('mileage').value,
+      engineSize: document.getElementById('engineSize').value,
+      fuelType: document.getElementById('fuelType').value,
       techName: document.getElementById('techName').value,
       serviceType: document.getElementById('serviceType').value,
       phone: document.getElementById('customerPhone').value,
@@ -1075,6 +1474,7 @@
       nextServiceDate: document.getElementById('nextServiceDate').value,
       nextServiceMileage: document.getElementById('nextServiceMileage').value,
       checks,
+      photos: reportPhotos,
       savedAt: new Date().toISOString()
     };
   }
@@ -1083,7 +1483,7 @@
   function saveToTracker() {
     const report = collectReportData();
 
-    // Save to localStorage tracker
+    // Save to localStorage tracker (includes photos)
     let tracker = [];
     try {
       const saved = localStorage.getItem('health_tracker');
@@ -1095,22 +1495,39 @@
     // Keep last 500 reports
     if(tracker.length > 500) tracker = tracker.slice(0, 500);
 
+    let localSaveOk = true;
     try {
       localStorage.setItem('health_tracker', JSON.stringify(tracker));
-    } catch(e) { console.warn('localStorage full'); }
+    } catch(e) {
+      localSaveOk = false;
+      console.warn('localStorage full — trying without photos');
+      // Retry without photos on this record if storage is full
+      try {
+        const trimmed = tracker.map((r,i)=> i===0 ? {...r, photos:[]} : r);
+        localStorage.setItem('health_tracker', JSON.stringify(trimmed));
+        localSaveOk = true;
+        alert('Storage is nearly full so photos for this report were not saved locally. Consider deleting old reports from the Tracker, or removing some photos.');
+      } catch(e2) {
+        console.warn('localStorage still full');
+      }
+    }
 
-    // Push to Supabase
+    // Push to Supabase — exclude photos (base64 images are too large for the reports table)
     const supaObj = { ...report, checks: JSON.stringify(report.checks), workItems: JSON.stringify(report.workItems) };
+    delete supaObj.photos;
     fetch(SB+'/reports', { method:'POST', headers:SH, body:JSON.stringify(supaObj) })
       .catch(() => {
         // Silently fail — local save is the primary
       });
 
+    // ── Update customer database with this vehicle's details ──
+    upsertCustomer(report);
+
     // Show confirmation
     const btn = document.querySelector('.btn-green');
     if(btn) {
       const orig = btn.textContent;
-      btn.textContent = '✅ Saved to Tracker!';
+      btn.textContent = localSaveOk ? '✅ Saved to Tracker!' : '⚠️ Saved (no photos)';
       btn.style.background = '#2aaa55';
       btn.style.color = '#fff';
       setTimeout(()=>{ btn.textContent=orig; btn.style.background=''; btn.style.color=''; }, 2500);
