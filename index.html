@@ -407,6 +407,20 @@
 
   .photo-item-caption-print { display: none; }
 
+  .photo-status {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .photo-status.synced { color: var(--pass-border); background: var(--pass-bg); }
+  .photo-status.uploading { color: var(--advisory-border); background: var(--advisory-bg); }
+  .photo-status.local { color: var(--dim); }
+
   .photo-lightbox {
     display: none;
     position: fixed; inset: 0;
@@ -461,7 +475,7 @@
   @media print {
     @page { size: A4; margin: 12mm 14mm; }
     body { background: #fff !important; color: #111 !important; padding: 0; font-size: 11px; }
-    .top-actions, .add-row-btn, .sig-clear, .modal-overlay, .lookup-banner, .photo-upload-row, .photo-item-remove, .photo-item-caption, .photo-lightbox { display: none !important; }
+    .top-actions, .add-row-btn, .sig-clear, .modal-overlay, .lookup-banner, .photo-upload-row, .photo-item-remove, .photo-item-caption, .photo-lightbox, .photo-status { display: none !important; }
     .screen-wrapper { max-width: 100%; }
     .top-bar { border-bottom: 2px solid #111; margin-bottom: 10px; padding-bottom: 8px; }
     .brand { color: #111 !important; font-size: 1.4rem; }
@@ -1142,6 +1156,7 @@
     });
     reportPhotos = [];
     renderPhotoGrid();
+    currentReportId = generateReportId();
     document.getElementById('lookupBanner').classList.remove('show');
     updateTotals();
     updateSummary();
@@ -1181,6 +1196,15 @@
   const SB = 'https://hzbwjjypdcejcwtwalsp.supabase.co/rest/v1';
   const SK = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh6YndqanlwZGNlamN3dHdhbHNwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3NTQ0NDcsImV4cCI6MjA5NjMzMDQ0N30.XCgZ2_3SRrJYwpm43rnsPTCnE_zT6x4VzILUF_AmR1M';
   const SH = {'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json','Prefer':'return=minimal'};
+  const SB_ROOT = SB.replace('/rest/v1', ''); // base project URL, used for Storage API calls
+  const PHOTO_BUCKET = 'vehicle-photos';
+
+  // Each report gets one stable ID for its whole session — used so photos
+  // uploaded to cloud storage are grouped under the correct report folder.
+  function generateReportId() {
+    return 'SR-' + new Date().getFullYear() + '-' + Date.now().toString().slice(-6);
+  }
+  let currentReportId = generateReportId();
 
   // ══════════════════════════════════════
   // CUSTOMER DATABASE
@@ -1327,7 +1351,7 @@
   // ══════════════════════════════════════
   // VEHICLE PHOTOS
   // ══════════════════════════════════════
-  let reportPhotos = []; // { data: 'data:image/jpeg;base64,...', caption: '' }
+  let reportPhotos = []; // { data: 'data:image/jpeg;base64,...', caption: '', url: null, uploading: false }
   const MAX_PHOTOS = 12;
   const MAX_PHOTO_WIDTH = 1000;
   const PHOTO_QUALITY = 0.6;
@@ -1359,6 +1383,57 @@
     });
   }
 
+  // Convert a data URL (base64) into a Blob for uploading
+  function dataURLtoBlob(dataURL) {
+    const [header, base64] = dataURL.split(',');
+    const mime = header.match(/:(.*?);/)[1];
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for(let i=0; i<binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return new Blob([bytes], { type: mime });
+  }
+
+  // Upload one photo to Supabase Storage. On success, sets photo.url to the
+  // public URL. Resolves true/false — never throws, so it's always safe to call.
+  function uploadPhotoToCloud(photo, index) {
+    return new Promise((resolve) => {
+      try {
+        const blob = dataURLtoBlob(photo.data);
+        const path = `${currentReportId}/${Date.now()}_${index}.jpg`;
+        fetch(`${SB_ROOT}/storage/v1/object/${PHOTO_BUCKET}/${path}`, {
+          method: 'POST',
+          headers: {
+            'apikey': SK,
+            'Authorization': 'Bearer ' + SK,
+            'Content-Type': 'image/jpeg'
+          },
+          body: blob
+        }).then(r => {
+          if(r.ok) {
+            photo.url = `${SB_ROOT}/storage/v1/object/public/${PHOTO_BUCKET}/${path}`;
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        }).catch(() => resolve(false));
+      } catch(e) { resolve(false); }
+    });
+  }
+
+  // Attempt to upload any photos that haven't been synced to the cloud yet.
+  // Safe to call repeatedly — skips photos that already have a url or are mid-upload.
+  function syncPhotosToCloud() {
+    reportPhotos.forEach((photo, i) => {
+      if(!photo.url && !photo.uploading) {
+        photo.uploading = true;
+        uploadPhotoToCloud(photo, i).then(() => {
+          photo.uploading = false;
+          renderPhotoGrid();
+        });
+      }
+    });
+  }
+
   function handlePhotoFiles(fileList) {
     if(!fileList || !fileList.length) return;
 
@@ -1372,9 +1447,11 @@
     Promise.all(files.map(f => resizeImage(f).catch(()=>null)))
       .then(results => {
         results.forEach(dataURL => {
-          if(dataURL) reportPhotos.push({ data: dataURL, caption: '' });
+          if(dataURL) reportPhotos.push({ data: dataURL, caption: '', url: null, uploading: false });
         });
         renderPhotoGrid();
+        // Try to sync new photos to the cloud in the background — doesn't block the UI
+        syncPhotosToCloud();
       });
   }
 
@@ -1387,13 +1464,21 @@
       return;
     }
 
-    grid.innerHTML = reportPhotos.map((photo, i) => `
+    grid.innerHTML = reportPhotos.map((photo, i) => {
+      let statusBadge;
+      if(photo.url) statusBadge = `<span class="photo-status synced" title="Saved to cloud — visible on all devices">☁️ Synced</span>`;
+      else if(photo.uploading) statusBadge = `<span class="photo-status uploading" title="Uploading...">⏳ Uploading…</span>`;
+      else statusBadge = `<span class="photo-status local" title="Only on this device — will retry on save">📱 This device</span>`;
+
+      return `
       <div class="photo-item">
         <img src="${photo.data}" alt="Vehicle photo ${i+1}" onclick="openLightbox(${i})">
+        ${statusBadge}
         <input type="text" class="photo-item-caption" placeholder="Add caption..." value="${(photo.caption||'').replace(/"/g,'&quot;')}" oninput="updatePhotoCaption(${i}, this.value)">
         <div class="photo-item-caption-print">${photo.caption ? photo.caption.replace(/</g,'&lt;') : ''}</div>
         <button class="photo-item-remove" onclick="removePhoto(${i})">🗑 Remove</button>
-      </div>`).join('');
+      </div>`;
+    }).join('');
   }
 
   function updatePhotoCaption(index, value) {
@@ -1408,7 +1493,7 @@
   function openLightbox(index) {
     const photo = reportPhotos[index];
     if(!photo) return;
-    document.getElementById('lightboxImg').src = photo.data;
+    document.getElementById('lightboxImg').src = photo.url || photo.data;
     document.getElementById('photoLightbox').classList.add('open');
   }
 
@@ -1421,8 +1506,8 @@
     const reg = document.getElementById('reg').value.trim() || 'Unknown';
     const customer = document.getElementById('customerName').value.trim() || 'Unknown';
     const date = document.getElementById('visitDate').value || new Date().toISOString().split('T')[0];
-    // Generate a unique report ID each time (not shown to user)
-    const reportNum = 'SR-' + new Date().getFullYear() + '-' + Date.now().toString().slice(-5);
+    // Use the stable ID generated for this report session (also used for cloud photo folders)
+    const reportNum = currentReportId;
 
     // Collect work items
     const workItems = [];
@@ -1480,10 +1565,27 @@
   }
 
   // ── SAVE TO TRACKER (FIXED) ──
-  function saveToTracker() {
+  async function saveToTracker() {
+    // Give any in-progress photo uploads a chance to finish (up to 6 seconds),
+    // and kick off uploads for any photos that haven't started yet.
+    const pending = reportPhotos.filter(p => !p.url);
+    if(pending.length) {
+      const btn = document.querySelector('.btn-green');
+      const origText = btn ? btn.textContent : null;
+      if(btn) btn.textContent = '☁️ Syncing photos…';
+
+      await Promise.race([
+        Promise.all(reportPhotos.map((p,i) => p.url ? Promise.resolve() : uploadPhotoToCloud(p, i))),
+        new Promise(resolve => setTimeout(resolve, 6000))
+      ]);
+      renderPhotoGrid();
+
+      if(btn && origText) btn.textContent = origText;
+    }
+
     const report = collectReportData();
 
-    // Save to localStorage tracker (includes photos)
+    // Save to localStorage tracker (includes full-resolution photo data for this device)
     let tracker = [];
     try {
       const saved = localStorage.getItem('health_tracker');
@@ -1512,9 +1614,11 @@
       }
     }
 
-    // Push to Supabase — exclude photos (base64 images are too large for the reports table)
+    // Push to Supabase. Photos are sent as cloud URLs + captions only (small),
+    // never as base64 — any photos that didn't finish uploading are simply
+    // left out of the cloud copy but remain on this device.
     const supaObj = { ...report, checks: JSON.stringify(report.checks), workItems: JSON.stringify(report.workItems) };
-    delete supaObj.photos;
+    supaObj.photos = report.photos.filter(p => p.url).map(p => ({ url: p.url, caption: p.caption || '' }));
     fetch(SB+'/reports', { method:'POST', headers:SH, body:JSON.stringify(supaObj) })
       .catch(() => {
         // Silently fail — local save is the primary
@@ -1524,10 +1628,13 @@
     upsertCustomer(report);
 
     // Show confirmation
+    const allSynced = !report.photos.length || report.photos.every(p => p.url);
     const btn = document.querySelector('.btn-green');
     if(btn) {
       const orig = btn.textContent;
-      btn.textContent = localSaveOk ? '✅ Saved to Tracker!' : '⚠️ Saved (no photos)';
+      if(!localSaveOk) btn.textContent = '⚠️ Saved (no photos)';
+      else if(report.photos.length && !allSynced) btn.textContent = '✅ Saved (some photos local-only)';
+      else btn.textContent = '✅ Saved to Tracker!';
       btn.style.background = '#2aaa55';
       btn.style.color = '#fff';
       setTimeout(()=>{ btn.textContent=orig; btn.style.background=''; btn.style.color=''; }, 2500);
